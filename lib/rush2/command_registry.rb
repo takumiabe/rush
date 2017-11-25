@@ -8,7 +8,7 @@ module Rush2
     end
 
     def search(command)
-      external(command) || builtin(command)
+      builtin(command) || external(command)
     end
 
     private
