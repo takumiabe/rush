@@ -16,8 +16,7 @@ module Rush2
             end
           end
         end
-
-        system "#{@command_path} #{args.join(' ')}"
+        system(@command_path.to_s, *args, chdir: context.current_directory)
       end
     end
   end
