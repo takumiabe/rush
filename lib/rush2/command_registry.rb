@@ -14,16 +14,16 @@ module Rush2
     private
 
     def external(command)
-      ret = nil
       @context.search_paths.each do |path|
         next unless path.entries.include?(Pathname.new(command))
 
-        path = path.join(command)
-        next unless path.executable?
+        command_path = path.join(command)
+        next unless command_path.executable?
 
-        ret = path
+        return Command::External.new(command_path)
       end
-      ret
+
+      nil
     end
 
     def builtin(command)

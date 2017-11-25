@@ -26,27 +26,16 @@ module Rush2
     private
 
     def eval_line(line)
-      command, *args = line.split(' ')
-      return nil unless command
+      command_name, *args = line.split(' ')
+      return nil unless command_name
 
-      command_path = @command_registry.search(command)
-      unless command_path
+      command = @command_registry.search(command_name)
+      unless command
         puts "command not found: #{command}"
         return nil
       end
 
-      args.map do |part|
-        if m = part.match(/\A@(?<name>.*)\z/)
-          unless @scope.key?(m[:name])
-            puts "variable @#{m[:name]} not defined."
-            return nil
-          else
-            @scope[m[:name]]
-          end
-        end
-      end
-
-      system "#{command_path} #{args.join(' ')}"
+      command.call(@scope, args)
     end
   end
 end
