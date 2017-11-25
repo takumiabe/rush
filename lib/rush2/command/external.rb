@@ -5,14 +5,14 @@ module Rush2
         @command_path = command_path
       end
 
-      def call(scope, args)
+      def call(context, args)
         args.map do |part|
           if m = part.match(/\A@(?<name>.*)\z/)
-            unless scope.key?(m[:name])
+            unless context.locals.key?(m[:name])
               puts "variable @#{m[:name]} not defined."
               return nil
             else
-              scope[m[:name]]
+              context.locals[m[:name]]
             end
           end
         end

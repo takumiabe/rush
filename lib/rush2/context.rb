@@ -1,9 +1,11 @@
 module Rush2
   class Context
+    attr_accessor :locals
     attr_accessor :prompt
     attr_accessor :search_paths
 
     def initialize
+      @locals = {}
       @prompt = '> '
       @search_paths = SortedSet.new
     end

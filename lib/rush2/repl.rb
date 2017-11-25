@@ -10,8 +10,6 @@ module Rush2
       if File.exists? rc
         @context.instance_eval IO.read(rc)
       end
-
-      @scope = {}
     end
 
     def start
@@ -35,7 +33,7 @@ module Rush2
         return nil
       end
 
-      command.call(@scope, args)
+      command.call(@context, args)
     end
   end
 end
