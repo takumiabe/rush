@@ -9,6 +9,11 @@ module Rush2
         @context.add_search_path(path)
       end
 
+      rc = Pathname.new(ENV['HOME']).join('./.rushrc')
+      if File.exists? rc
+        @context.instance_eval IO.read(rc)
+      end
+
       @scope = {}
     end
 
