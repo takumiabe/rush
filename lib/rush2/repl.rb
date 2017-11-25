@@ -3,6 +3,7 @@ require 'readline'
 module Rush2
   class REPL
     def initialize
+      @context = Context.new
       @command_registry = CommandRegistry.new
       ENV['PATH'].split(':').each do |path|
         @command_registry.add_search_path(path)
