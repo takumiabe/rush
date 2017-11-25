@@ -27,7 +27,28 @@ module Rush2
     end
 
     def builtin(command)
+      return Builtin.method(command) if Builtin.respond_to?(command, true)
+
       nil
+    end
+
+    module Builtin
+      class << self
+        def cd(context, args)
+          new_dir = File.expand_path(args[0], context.current_directory)
+
+          unless Dir.exists?(new_dir)
+            puts "no such directory: #{args[0]}"
+            return
+          end
+
+          context.current_directory = new_dir
+        end
+
+        def pwd(context, args)
+          puts context.current_directory
+        end
+      end
     end
   end
 end
