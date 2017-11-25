@@ -1,3 +1,5 @@
 #!/usr/bin/env ruby
 
 require "rush2"
+
+Rush2::REPL.new.start

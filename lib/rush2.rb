@@ -1,5 +1,4 @@
 require "rush2/version"
 
-module Rush2
-  # Your code goes here...
-end
+require 'rush2/command_registry'
+require 'rush2/repl'
