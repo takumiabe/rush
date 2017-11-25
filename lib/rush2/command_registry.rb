@@ -3,14 +3,8 @@ require 'pathname'
 
 module Rush2
   class CommandRegistry
-    def initialize
-      @search_paths = SortedSet.new
-    end
-
-    def add_search_path(path)
-      d = Pathname.new(path)
-      return unless d.directory?
-      @search_paths.add(d)
+    def initialize(context)
+      @context = context
     end
 
     def search(command)
@@ -21,7 +15,7 @@ module Rush2
 
     def external(command)
       ret = nil
-      @search_paths.each do |path|
+      @context.search_paths.each do |path|
         next unless path.entries.include?(Pathname.new(command))
 
         path = path.join(command)
