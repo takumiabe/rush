@@ -5,9 +5,6 @@ module Rush2
     def initialize
       @context = Context.new
       @command_registry = CommandRegistry.new(@context)
-      ENV['PATH'].split(':').each do |path|
-        @context.add_search_path(path)
-      end
 
       rc = Pathname.new(ENV['HOME']).join('./.rushrc')
       if File.exists? rc

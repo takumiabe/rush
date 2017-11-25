@@ -1,0 +1,4 @@
+# read PATH from bash
+ENV['PATH'].split(':').each do |path|
+  add_search_path path
+end
