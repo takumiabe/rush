@@ -1,3 +1,9 @@
+self.prompt = lambda do |context|
+  char = ENV['USER'] == 'root' ? '#' : '$'
+
+  "#{ENV['USER']}@#{`hostname`.chomp} #{char} "
+end
+
 # read PATH from bash
 ENV['PATH'].split(':').each do |path|
   add_search_path path

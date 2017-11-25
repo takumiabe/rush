@@ -18,7 +18,7 @@ module Rush2
       stty_save = `stty -g`.chomp
       trap("INT") { system "stty", stty_save; exit }
 
-      while line = Readline.readline("> ")
+      while line = Readline.readline(@context.prompt)
         eval_line(line) if line
       end
     end
