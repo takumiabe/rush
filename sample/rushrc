@@ -1,8 +1,16 @@
 self.prompt = lambda do |context|
+  user = "#{ENV['USER']}@#{`hostname`.chomp}"
   pwd = context.current_directory.sub(ENV['HOME'], '~')
   char = ENV['USER'] == 'root' ? '#' : '$'
 
-  "#{ENV['USER']}@#{`hostname`.chomp}:#{pwd} #{char} "
+  if ENV['TERM'].match? /xterm.*256/
+    # see https://github.com/fazibear/colorize
+    user = user.colorize(:light_green).bold
+    pwd = pwd.colorize(:yellow).bold
+    char = char.colorize(:blue).bold
+  end
+
+  "[#{user} #{pwd}]\n#{char} "
 end
 
 # read PATH from bash
