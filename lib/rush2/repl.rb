@@ -1,4 +1,5 @@
 require 'readline'
+require 'shellwords'
 
 module Rush2
   class REPL
@@ -24,7 +25,7 @@ module Rush2
     private
 
     def eval_line(line)
-      command_name, *args = line.split(' ')
+      command_name, *args = Shellwords.split(line)
       return nil unless command_name
 
       command = @command_registry.search(command_name)
