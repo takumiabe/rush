@@ -8,7 +8,7 @@ module Rush2
     end
 
     def search(command)
-      builtin(command) || external(command)
+      builtin(command) || function(command) || external(command)
     end
 
     private
@@ -35,6 +35,10 @@ module Rush2
       end
 
       nil
+    end
+
+    def function(command)
+      @context.method(command) if @context.methods.include?(command.to_sym)
     end
 
     def builtin(command)
