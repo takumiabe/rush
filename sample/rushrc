@@ -1,7 +1,8 @@
 self.prompt = lambda do |context|
+  pwd = context.current_directory.sub(ENV['HOME'], '~')
   char = ENV['USER'] == 'root' ? '#' : '$'
 
-  "#{ENV['USER']}@#{`hostname`.chomp} #{char} "
+  "#{ENV['USER']}@#{`hostname`.chomp}:#{pwd} #{char} "
 end
 
 # read PATH from bash
