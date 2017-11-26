@@ -14,12 +14,23 @@ module Rush2
     private
 
     def external(command)
+      # 絶対パス
+      if command.start_with?('/')
+        command_path = Pathname.new(command)
+        return Command::External.new(command_path)
+      end
+
+      # 相対パス
+      if command.start_with?('./')
+        command_path = Pathname.new(command).expand_path(@context.current_directory)
+        return Command::External.new(command_path)
+      end
+
+      # コマンド名のみの場合、search_pathsから探索する
       @context.search_paths.each do |path|
         next unless path.entries.include?(Pathname.new(command))
 
         command_path = path.join(command)
-        next unless command_path.executable?
-
         return Command::External.new(command_path)
       end
 
