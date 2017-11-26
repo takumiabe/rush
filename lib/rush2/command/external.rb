@@ -6,6 +6,11 @@ module Rush2
       end
 
       def call(context, args)
+        unless @command_path.executable?
+          puts "#{@command_path} is not executable"
+          return
+        end
+
         args.map do |part|
           if m = part.match(/\A@(?<name>.*)\z/)
             unless context.locals.key?(m[:name])
