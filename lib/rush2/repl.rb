@@ -35,7 +35,7 @@ module Rush2
       end
 
       # TODO: 汚いので、@contextを最初からcommandに持たせるつもり
-      if command.method(:call).arity == 2
+      if command.arity == 2
         command.call(@context, args)
       else
         command.call(args)

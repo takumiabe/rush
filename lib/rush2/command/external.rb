@@ -5,6 +5,10 @@ module Rush2
         @command_path = command_path
       end
 
+      def arity
+        2
+      end
+
       def call(context, args)
         unless @command_path.executable?
           STDERR.puts "#{@command_path} is not executable"
