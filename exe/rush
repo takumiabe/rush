@@ -1,5 +1,6 @@
 #!/usr/bin/env ruby
 
 require "rush2"
+Bundler.require(:default)
 
 Rush2::REPL.new.start
