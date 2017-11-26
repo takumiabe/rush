@@ -5,7 +5,7 @@ module Rush2
   class REPL
     def initialize
       @context = Context.new
-      @command_registry = CommandRegistry.new(@context)
+      @command_factory = CommandFactory.new(@context)
 
       rc = Pathname.new(ENV['HOME']).join('./.rushrc')
       if File.exists? rc
@@ -28,18 +28,13 @@ module Rush2
       command_name, *args = Shellwords.split(line)
       return nil unless command_name
 
-      command = @command_registry.search(command_name)
+      command = @command_factory.build(command_name)
       unless command
         STDERR.puts "command not found: #{command_name}"
         return nil
       end
 
-      # TODO: 汚いので、@contextを最初からcommandに持たせるつもり
-      if command.arity == 2
-        command.call(@context, args)
-      else
-        command.call(args)
-      end
+      command.call(args)
     end
   end
 end
