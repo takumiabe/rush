@@ -29,7 +29,7 @@ module Rush2
 
       command = @command_registry.search(command_name)
       unless command
-        puts "command not found: #{command}"
+        STDERR.puts "command not found: #{command}"
         return nil
       end
 

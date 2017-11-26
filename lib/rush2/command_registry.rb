@@ -49,7 +49,7 @@ module Rush2
           new_dir = File.expand_path(args[0], context.current_directory)
 
           unless Dir.exists?(new_dir)
-            puts "no such directory: #{args[0]}"
+            STDERR.puts "no such directory: #{args[0]}"
             return
           end
 
