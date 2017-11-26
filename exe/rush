@@ -3,4 +3,10 @@
 require "rush2"
 Bundler.require(:default)
 
-Rush2::REPL.new.start
+begin
+  Rush2::REPL.new.start
+rescue => e
+  STDERR.puts e.message
+  STDERR.puts e.backtrace
+  loop {}
+end
