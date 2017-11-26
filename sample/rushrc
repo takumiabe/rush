@@ -17,3 +17,13 @@ end
 ENV['PATH'].split(':').each do |path|
   add_search_path path
 end
+
+# alias
+def ls(args)
+  system 'ls', '--color=auto', *args
+end
+
+# call above
+def ll(args)
+  ls args + ['-l']
+end
